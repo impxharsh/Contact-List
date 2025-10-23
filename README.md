@@ -4,6 +4,7 @@ A modern single-page **Contact List Application** built with **React**, **Vite**
 
 This project focuses on creating a **clean, responsive, and user-friendly** experience while fulfilling all core and optional requirements.
 
+The page is live at : https://contact-list-cyan-pi.vercel.app/
 ---
 
 ## ✨ Features
