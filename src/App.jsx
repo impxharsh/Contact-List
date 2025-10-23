@@ -43,7 +43,6 @@ function App() {
 
   // Handle adding a new contact
   const handleAddContact = (newContact) => {
-    // In a real app, you'd send this to an API
     const newContactWithId = {
       ...newContact,
       id: Date.now().toString(), // Create a simple unique ID

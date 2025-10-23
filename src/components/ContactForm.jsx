@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 function ContactForm({ onSave, onCancel }) {
   const [formData, setFormData] = useState({
