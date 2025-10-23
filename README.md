@@ -36,7 +36,7 @@ npm install
 
 # 4. Start the development server
 npm run dev
-
+```
 
 Now open http://localhost:5173
  (or the port shown in your terminal) to view the app in your browser
