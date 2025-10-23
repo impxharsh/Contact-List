@@ -5,6 +5,8 @@ import SearchBar from './components/Searchbar.jsx';
 import LoadingAnimation from './components/LoadingAnimation.jsx';
 import AddContactModal from './components/AddContactModal.jsx';
 
+const LOCAL_STORAGE_KEY = 'myContacts';
+
 function App() {
   const [allContacts, setAllContacts] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -16,8 +18,17 @@ function App() {
   useEffect(() => {
     const loadContacts = async () => {
       try {
-        const contacts = await fetchContacts();
-        setAllContacts(contacts);
+
+        const storedContacts = localStorage.getItem(LOCAL_STORAGE_KEY);
+        if(storedContacts){
+          setAllContacts(JSON.parse(storedContacts));
+        }
+        else{
+          const contacts = await fetchContacts();
+          setAllContacts(contacts);
+          localStorage.setItem(LOCAL_STORAGE_KEY,JSON.stringify(contacts));
+        }
+        
       } catch (err) {
         setError(err.message || 'Failed to fetch contacts.');
       } finally {
@@ -42,16 +53,21 @@ function App() {
   }, [allContacts, searchTerm]);
 
   // Handle adding a new contact
-  const handleAddContact = (newContact) => {
+   const handleAddContact = (newContact) => {
     const newContactWithId = {
       ...newContact,
-      id: Date.now().toString(), // Create a simple unique ID
-      // Provide a fallback avatar if no image URL is given
+      id: Date.now().toString(), 
       imageUrl: newContact.imageUrl || `https://placehold.co/400x400/EBF4FF/76A9FA?text=${newContact.name.charAt(0)}`
     };
     
-    // Add new contact to the top of the list
-    setAllContacts([newContactWithId, ...allContacts]);
+    // Create the new, updated list
+    const updatedContacts = [newContactWithId, ...allContacts];
+    // Update state
+    setAllContacts(updatedContacts);
+    
+    // AND Save the updated list to localStorage
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updatedContacts));
+    
     setIsModalOpen(false); // Close the modal
   };
 
@@ -62,7 +78,7 @@ function App() {
     }
     if (error) {
       return (
-        <div className="text-center py-10 text-red-600 dark:text-red-400">
+        <div className="text-center py-10 text-red-600">
           <h3 className="text-xl font-semibold">Error: {error}</h3>
           <p>Please try refreshing the page.</p>
         </div>
@@ -72,13 +88,13 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 dark:bg-gray-900 transition-colors duration-200">
+    <div className="min-h-screen bg-gray-100 transition-colors duration-200">
       {/* Header */}
-      <header className="bg-white dark:bg-gray-800 shadow-lg dark:shadow-gray-700/50 sticky top-0 z-10">
+      <header className="bg-white shadow-lg sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
           <div className="flex justify-between items-center">
             {/* App Title */}
-            <h1 className="text-4xl font-bold text-transparent bg-clip-text bg-linear-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400">
+            <h1 className="text-4xl font-bold text-transparent bg-clip-text bg-linear-to-r from-blue-600 to-purple-600 ">
               Contacts
             </h1>
             
@@ -86,7 +102,7 @@ function App() {
             <div className="flex items-center space-x-2">
               <button
                 onClick={() => setIsModalOpen(true)}
-                className="flex items-center space-x-2 px-4 py-2.5 bg-blue-600 text-white rounded-full font-semibold shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900 transition-all duration-200"
+                className="flex items-center space-x-2 px-4 py-2.5 bg-blue-600 text-white rounded-full font-semibold shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2  transition-all duration-200"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" /></svg>
                 <span className="hidden sm:block">Add Contact</span>
