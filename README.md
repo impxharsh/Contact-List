@@ -36,7 +36,7 @@ npm install
 
 # 4. Start the development server
 npm run dev
-
+```
 
 Now open http://localhost:5173
  (or the port shown in your terminal) to view the app in your browser
@@ -65,12 +65,11 @@ Now open http://localhost:5173
 
 - Mock API:
 
-- Includes a 1-second delay to simulate real-world network latency.
+  - Includes a 1-second delay to simulate real-world network latency.
 
-- Adds a random failure chance to test error handling and resilience.
+  - Adds a random failure chance to test error handling and resilience.
 
 ### 🧩 Tech Stack
-Tool	Purpose
-React	Core framework for building the UI
-Vite	Lightning-fast development and build tooling
-Tailwind CSS	Utility-first styling for responsive design
+- React: Core framework for building the UI
+- Vite:	Lightning-fast development and build tooling
+- Tailwind CSS:	Utility-first styling for responsive design
