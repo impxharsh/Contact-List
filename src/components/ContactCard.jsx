@@ -50,12 +50,12 @@ function ContactCard({ contact }) {
   };
 
   return (
-    // 1. Changed card background to white for better contrast
-    <div className="bg-white rounded-lg shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl">
+
+    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl dark:shadow-gray-700/50 hover:scale-105">
       
       {/* Image or Fallback Avatar */}
-      {/* 2. Added a bottom border to this wrapper div */}
-      <div className="relative w-full h-48 bg-gray-200 border-b border-gray-200">
+      {/* 2. ADDED dark:bg-gray-700 and dark:border-gray-700 */}
+      <div className="relative w-full h-48 bg-gray-200 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-700">
         {!hasError && imgSrc ? (
           <>
             {/* 1. The Blurred Background Image */}
@@ -69,8 +69,6 @@ function ContactCard({ contact }) {
             <img
               src={imgSrc}
               alt={`${name}'s profile`}
-              // 'object-contain' fits the whole image
-              // 'relative' puts it on top of the blurred background
               className="relative w-full h-full object-contain" 
               referrerPolicy="no-referrer"
               onError={handleImageError}
@@ -83,18 +81,22 @@ function ContactCard({ contact }) {
 
       {/* Card Content */}
       <div className="p-5">
-        <h3 className="text-2xl font-semibold text-gray-800 mb-2 truncate" title={name}>
+        {/* 3. ADDED dark:text-white */}
+        <h3 className="text-2xl font-semibold text-gray-800 dark:text-white mb-2 truncate" title={name}>
           {name}
         </h3>
 
         {/* Contact Info */}
-        <div className="space-y-3 text-gray-700">
+        {/* 4. ADDED dark:text-gray-300 */}
+        <div className="space-y-3 text-gray-700 dark:text-gray-300">
           {/* Email */}
           <div className="flex items-center space-x-3">
-            <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+            {/* 5. ADDED dark:text-gray-400 */}
+            <svg className="w-5 h-5 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
             <a
               href={`mailto:${email}`}
-              className="truncate hover:text-blue-600 hover:underline"
+              // 6. ADDED dark:hover:text-blue-400
+              className="truncate hover:text-blue-600 dark:hover:text-blue-400 hover:underline"
               title={email}
             >
               {email}
@@ -103,10 +105,12 @@ function ContactCard({ contact }) {
 
           {/* Phone */}
           <div className="flex items-center space-x-3">
-            <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
+            {/* 7. ADDED dark:text-gray-400 */}
+            <svg className="w-5 h-5 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
             <a
               href={`tel:${phone}`}
-              className="truncate hover:text-blue-600 hover:underline"
+              // 8. ADDED dark:hover:text-blue-400
+              className="truncate hover:text-blue-600 dark:hover:text-blue-400 hover:underline"
               title={phone}
             >
               {phone}
